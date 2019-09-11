@@ -1,0 +1,40 @@
+library("ggeffects")
+marginalVar <- "T7"
+outputFile <- F
+outputFilePath <- "../../marginal_effect_R7.tiff"
+p <- ggpredict(res, c(marginalVar))
+p$predicted <- p$predicted / mean_cases
+p$std.error <- p$std.error / nthroot(mean_cases, 2)
+p$conf.low <- p$conf.low / mean_cases
+p$conf.high <- p$conf.high / mean_cases
+p <- plot(p, labs(x = paste(marginalVar, "(mm)", sep=" "), y="Relative Risk", title=""))
+
+# if (outputFile) {
+#   ggsave(outputFilePath , units="in", width=5, height=4.2, dpi=300, compression = "lzw")
+# } else {
+#   p
+# }
+
+# summary(res)
+# AICc(res)
+# BIC(res)
+
+
+set working directory
+use R version 3.5.3
+
+Can you add a condition check to make sure these packages were instralled when the system is running to the following lines?
+
+ln 29: Error in library(openxlsx) : there is no package called ．openxlsx
+ln 33: Error in library(pracma) : there is no package called ．pracma・
+ln 62: Error in library("ggeffects") : there is no package called ．ggeffects・
+ln 53: Error in library("MuMIN") : there is no package called ．MuMIN・
+
+if (!require("openxlsx"))  install.packages("openxlsx")
+if (!require("pracma"))  install.packages("pracma")
+if (!require("ggeffects"))  install.packages("ggeffects")
+
+ln 71: p <- plot(p) + labs(x = paste(marginalVar, "(mm)", sep=" "), y="Relative Risk", title="")
+Error in labs(x = paste(marginalVar, "(mm)", sep = " "), y = "Relative Risk",  : 
+  could not find function "labs"
+if (!require("ggplot2"))  install.packages("ggplot2")
